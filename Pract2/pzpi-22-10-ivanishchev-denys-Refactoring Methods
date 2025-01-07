@@ -1,0 +1,211 @@
+Харківський Національний Університет Радіоелектроніки
+Кафедра Програмної Інженерії
+
+
+
+
+
+Звіт
+З практичної роботи №2
+«Refactoring Methods»
+
+
+
+
+Виконав:									        Перевірив:
+Ст. гр. ПЗПІ-22-10							        Сокорчук І.П.
+Іваніщев Д.Я.
+
+
+
+
+
+Харків 2024
+1. Мета:
+	Ознайомитися з основними методами рефакторингу коду на основі власних проектів. Навчитися використовувати методи рефакторингу для покращення якості коду.
+
+2. Хід роботи
+	Було обрано три методи рефакторингу:
+•	Push Down Method
+•	Remove Control Flag
+•	Replace Array with Object
+Push Down Method – це метод переміщення загальних методів або полів із базового класу до підкласів, якщо вони використовуються лише в підкласах.
+Remove Control Flag – це метод видалення логічних прапорів для контролю потоку програми, які ускладнюють розуміння коду.
+Replace Array with Object – це метод заміни масиву на об'єкт для підвищення зрозумілості та кращої структури даних.
+2.1. Push Down Method (додаток А)
+	Після рефакторингу метод був переміщений у підкласи щоб уникнути непотрібної генералізації. Кожен підклас має свою специфічну реалізацію, яка відповідає його логікі. Результат – код став більш зрозумілим та зменшився ризи помилок при розширенні.
+2.2. Remove Control Frag (додаток Б)
+	Після рефакторингу зайвий прапорець було видалено, через що код став більш прямолінійним і без потрібних додаткових перевірок та оновлень, що допомагає зменшити ризик створення помилок та полегшує відлагодження коду.
+2.3. Replace Array With Object (додаток В)
+	Після рефакторингу масив було перероблено у об’єкт, що дозволяє чітко описати структуру даних, позбавитися помилок з неправильним використанням індексів а також полегшує роботу з цими даними та навіть додавати методи до об’єкта.
+3. Висновок
+	Було досліджено Code Convention для мови програмування «Visual Basic». Також набули навичок для написання чистого коду та для його рефакторінгу.
+
+Відео презентації: https://youtu.be/GiPL_PQVx1k
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Додаток А
+
+Код до рефакторингу
+Public Class Animal
+    Public Overridable Sub MakeSound()
+        Console.WriteLine("Some generic animal sound")
+    End Sub
+End Class
+Public Class Dog
+    Inherits Animal
+End Class
+Public Class Cat
+    Inherits Animal
+End Class
+
+Код після рефакторингу
+Public Class Animal
+End Class
+
+Public Class Dog
+    Inherits Animal
+
+    Public Sub MakeSound()
+        Console.WriteLine("Bark")
+    End Sub
+End Class
+
+Public Class Cat
+    Inherits Animal
+
+    Public Sub MakeSound()
+        Console.WriteLine("Meow")
+    End Sub
+End Class
+
+
+
+
+
+
+
+
+
+
+
+
+Додаток Б
+
+Код до рефакторингу
+Public Sub FindValue(ByVal numbers As List(Of Integer), ByVal target As Integer)
+    Dim found As Boolean = False
+    For Each number In numbers
+        If number = target Then
+            found = True
+            Exit For
+        End If
+    Next
+    If found Then
+        Console.WriteLine("Value found!")
+    Else
+        Console.WriteLine("Value not found.")
+    End If
+End Sub
+Код після рефакторингу
+Public Sub FindValue(ByVal numbers As List(Of Integer), ByVal target As Integer)
+    For Each number In numbers
+        If number = target Then
+            Console.WriteLine("Value found!")
+            Return
+        End If
+    Next
+    Console.WriteLine("Value not found.")
+End Sub
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Додаток В
+
+Код до рефакторингу
+Public Sub DisplayPersonData()
+    Dim person(2) As String
+    person(0) = "John"
+    person(1) = "Doe"
+    person(2) = "30"
+    Console.WriteLine($"Name: {person(0)} {person(1)}, Age: {person(2)}")
+End Sub
+
+Код після рефакторингу
+Public Class Person
+    Public Property FirstName As String
+    Public Property LastName As String
+    Public Property Age As Integer
+End Class
+Public Sub DisplayPersonData()
+    Dim person As New Person With {
+        .FirstName = "John",
+        .LastName = "Doe",
+        .Age = 30
+    }
+    Console.WriteLine($"Name: {person.FirstName} {person.LastName}, Age: {person.Age}")
+End Sub
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Додаток Г
+ 
+Рис. 1 – слайд №1
+ 
+Рис. 2 – слайд №2
+
+ 
+Рис. 3 – слайд №3
+ 
+Рис. 4 – слайд №4
+ 
+Рис. 5 – слайд №5
+  
+Рис. 6 – слайд №6
+  
+Рис. 7 – слайд №7
+  
+Рис. 8 – слайд №8
+ 
+ Рис. 9 – слайд №9
+
