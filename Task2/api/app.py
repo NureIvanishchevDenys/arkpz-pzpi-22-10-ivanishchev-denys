@@ -2,7 +2,6 @@ from flask import Flask
 from extensions import db, migrate
 from config import Config
 from main_routes import api_blueprint
-from routes.reports import report_blueprint
 
 app = Flask(__name__)
 app.config.from_object(Config)
